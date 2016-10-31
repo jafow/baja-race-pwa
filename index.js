@@ -1,5 +1,6 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const path = require('path')
 const app = express()
 
 const hbs = exphbs.create({
@@ -19,5 +20,8 @@ app.get('/racer', (req, res) => {
   res.render('racer')
 })
 
+app.get('/rm', (req, res) => {
+  res.render('rm')
+})
 app.listen(3001)
 
