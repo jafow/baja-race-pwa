@@ -1,6 +1,8 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const path = require('path')
+const messageController = require('./server/message-controller')
+cont PORT = process.env.PORT || 3001
 const app = express()
 
 const hbs = exphbs.create({
@@ -23,5 +25,5 @@ app.get('/racer', (req, res) => {
 app.get('/rm', (req, res) => {
   res.render('rm')
 })
-app.listen(3001)
+app.listen(PORT, () => { console.log(`listening on ${PORT}`)
 
