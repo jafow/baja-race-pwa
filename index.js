@@ -1,42 +1,32 @@
-const express = require('express')
-const exphbs = require('express-handlebars')
-const path = require('path')
-const Pg = require('pg').Pool
-const messageController = require('./server/message-controller')
-const bodyParser = require('body-parser')
-// const uri = `postgresql://jaredfowler:${dbkey}@localhost/jaredfowler`
+var express = require('express')
+var exphbs = require('express-handlebars')
+var path = require('path')
+var messageController = require('./server/message-controller')
+var appController = require('./server/app-controller')
+var bodyParser = require('body-parser')
+// var uri = `postgresql://jaredfowler:${dbkey}@localhost/jaredfowler`
 const PORT = process.env.PORT || 3001
-const app = express()
-const dbConfig = {
-  host: 'localhost',
-  user: 'jaredfowler',
-  password: 'hubba0k0',
-  database: 'jaredfowler',
-  max: 8,
-  idleTimeoutMillis: 28000
-}
-const Pool = new Pg(dbConfig)
-const hbs = exphbs.create({
+var app = express()
+var hbs = exphbs.create({
   defaultLayout: 'main',
   partialsDir: path.join(__dirname, 'views/partials'),
   layoutsDir: path.join(__dirname, 'views/layouts'),
 })
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: false }))
-
-app.get('/', (req, res) => {
-  res.render('home')
+app.get('/', appController.get, (req, res) => {
+  res.render('home', req.body)
 })
 
 app.get('/racer', (req, res) => {
-  res.render('racer')
+
 })
 
 app.get('/rm', (req, res) => {
-  res.render('rm')
+  res.render('rm', req.body.renderData)
 })
 
 app.get('/latest', (req, res) => {
@@ -53,7 +43,7 @@ app.get('/latest', (req, res) => {
   })
 })
 
-app.post('/sat', (req, res) => {
+app.post('/sat', messageController.parse, (req, res) => {
   var raceMile = req.body.Body
   var msgCode = Number(req.body.SmsSid.substring(0, 9))
   var d = formatDateString(new Date())
