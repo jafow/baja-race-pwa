@@ -1,1 +1,12 @@
-this is a sass file
+.main {
+  display: flex;
+  background-color: $primary;
+
+@media (min-width: 600) {
+  .main {
+    padding-top: 120px;
+    margin: 0 auto;
+  }
+}
+
+
