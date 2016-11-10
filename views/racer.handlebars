@@ -1,2 +1,12 @@
 <h1>Racer Name</h1>
-<p>Jared</p>
+<p>{{ data.name }}</p>
+<p>RaceMile: {{ data.raceMile}}</p>
+<p>Time: {{ data.time}}</p>
+<section>
+    <ul>
+    {{#each data.checkpoints }}
+      <li>checkpoint# {{ this }} </li>
+    {{/each }}
+    </ul>
+</section>
+
