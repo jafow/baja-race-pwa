@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "node_modules/.bin/eslint $1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.6.15",
+    "body-parser": "^1.15.2",
     "browserify": "^13.1.0",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
@@ -17,6 +20,7 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.1.1",
+    "pg": "^6.1.0",
     "twilio": "^2.11.0"
   },
   "devDependencies": {
