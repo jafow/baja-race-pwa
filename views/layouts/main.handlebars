@@ -4,20 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css"/>
+    <!-- <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css"/> -->
     <link rel="stylesheet" type="text/css" href="styles/main.css"/>
     <title>Example App</title>
 </head>
 <body>
     <header>
-        <ul>
+        <ul class="nav">
             <li><a href='/'>Home</a></li>
             <li><a href='/racer'>Racer</a></li>
             <li><a href='/rm'>RaceMile</a></li>
         </ul>
     </header>
+    <section class="main">
+        {{{body}}}
+    </section>
 
-    {{{body}}}
-
+    <script src="bundle.js"></script>
 </body>
 </html>
