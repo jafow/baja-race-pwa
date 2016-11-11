@@ -1,8 +1,8 @@
 var express = require('express')
 var exphbs = require('express-handlebars')
 var path = require('path')
-var messageController = require('./server/message-controller')
-var appController = require('./server/app-controller')
+var messageController = require('./server/message-controller')()
+var appController = require('./server/app-controller')()
 var bodyParser = require('body-parser')
 // var uri = `postgresql://jaredfowler:${dbkey}@localhost/jaredfowler`
 const PORT = process.env.PORT || 3001
@@ -17,33 +17,12 @@ app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: false }))
+
 app.get('/', appController.get, (req, res) => {
   res.render('home', req.body)
 })
 
-app.get('/racer', (req, res) => {
-
-})
-
-app.get('/rm', (req, res) => {
-  res.render('rm', req.body.renderData)
-})
-
-app.get('/latest', (req, res) => {
-  Pool.query(`SELECT message from race_messages
-      ORDER BY time_received
-      DESC
-      LIMIT 1`
-      , (err, data) => {
-    if (err) {
-      res.status(400).send(err)
-    } else {
-      res.send(data.rows[0].message)
-    }
-  })
-})
-
-app.post('/sat', messageController.parse, (req, res) => {
+app.post('/sat', appController.set, (req, res) => {
   var raceMile = req.body.Body
   var msgCode = Number(req.body.SmsSid.substring(0, 9))
   var d = formatDateString(new Date())
