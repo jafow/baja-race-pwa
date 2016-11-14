@@ -1,5 +1,5 @@
 {
-  "name": "Race Captain",
+  "name": "baja-race-pwa",
   "start_url": "./?utm_source=web_app_manifest",
   "icons": [{
         "src": "images/icon-128x128.png",
