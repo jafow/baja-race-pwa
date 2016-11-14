@@ -15,7 +15,7 @@ function DbController () {
 }
 
 DbController.prototype.get = function get (req, res, next) {
-  Pool.query(`SELECT race_mile, mph, last_seen from ${tableName}
+  Pool.query(`SELECT race_mile, mph, last_seen, update_time from ${tableName}
       ORDER BY update_time
       DESC
       LIMIT 1`
@@ -25,8 +25,7 @@ DbController.prototype.get = function get (req, res, next) {
       throw err
     }
 
-    req.body.lastUpate = data.rows[0]
-    console.log('body updated is ', req.body.lastUpate)
+    req.body.lastUpdate = data.rows[0]
     next()
   })
 }

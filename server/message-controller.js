@@ -36,7 +36,8 @@ MessageController.prototype.parse = function (req, res, next) {
     message: messageBody,
     raceMile: Number(strippedRaceMile(messageBodyList[10])),
     mph: Number(stripMPH(messageBodyList[8])),
-    lastSeen: `${messageBodyList[4]} ${timeStamp}`
+    lastSeen: `${messageBodyList[4]} ${timeStamp}`,
+    updateTime: messageBody.update_time
   }
 
   req.body.parsed = parsed
