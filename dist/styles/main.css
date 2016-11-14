@@ -1,0 +1,38 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  font-family: Helvetica;
+  color: #444;
+  background-color: #EBFFE5; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: stretch; }
+
+main {
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: #413FCC;
+  color: #EBFFE5;
+  font-size: 39px; }
+
+.card {
+  background-color: #EBFFE5;
+  color: #000;
+  font-size: 29px; }
+
+.small {
+  font-size: 14px;
+  font-family: cursive;
+  color: #B2A095; }
+
+@media (min-width: 600) {
+  .card {
+    padding-top: 120px;
+    margin: 0 auto; } }
