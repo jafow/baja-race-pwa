@@ -1,4 +1,5 @@
-var DBOpenRequest = window.indexedDB.open('myCache', 1)
+/* define XMLHttpRequest */
+var DBOpenRequest = window.indexedDB.open('pwa-cache', 0.1)
 var db
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js', {scope: '/dist/'})
@@ -19,10 +20,13 @@ DBOpenRequest.onerror = function (event) {
 
 DBOpenRequest.onsuccess = function (event) {
   console.log('success')
+  db = event.target.result
+  console.log('db is ', db)
 }
 
 DBOpenRequest.onupgradeneeded = function (event) {
   db = event.target.result
+  console.log('needed ')
 
   var objectStore = db.createObjectStore('caches', {
     keyPath: 'filePath'
@@ -40,6 +44,11 @@ DBOpenRequest.onupgradeneeded = function (event) {
       filesObjectStore.add({'index.html': data})
     })
   }
+}
+
+function createObjectStore (db, storeName) {
+  db.createObjectStore(storename, { keyPath: 'filePath' })
+  return db
 }
 
 function openAndReadFromDB () {
