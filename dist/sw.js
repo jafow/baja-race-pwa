@@ -1,5 +1,5 @@
 /* define XMLHttpRequest */
-var DBOpenRequest = window.indexedDB.open('pwa-cache', 0.1)
+var DBOpenRequest = window.indexedDB.open('pwa-cache', 1.0)
 var db
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js', {scope: '/dist/'})
@@ -19,36 +19,35 @@ DBOpenRequest.onerror = function (event) {
 }
 
 DBOpenRequest.onsuccess = function (event) {
-  console.log('success')
   db = event.target.result
-  console.log('db is ', db)
+  var t = db.transaction(['myFiles'], 'readwrite')
+  var obStore = t.objectStore('myFiles')
+
+  getFileBlob('/').then(function (data) {
+    console.log('adding data', data)
+    obStore.add({'index': data})
+  })
 }
 
 DBOpenRequest.onupgradeneeded = function (event) {
   db = event.target.result
-  console.log('needed ')
 
-  var objectStore = db.createObjectStore('caches', {
-    keyPath: 'filePath'
-  })
-
-  objectStore.createIndex('fileName', 'fileName', { unique: true })
+  var objectStore = createObjectStore(db, 'myFiles')
   objectStore.createIndex('img', 'img', { unique: true })
+  objectStore.createIndex('html', 'html', { unique: true })
   objectStore.transaction.oncomplete = function (event) {
     var filesObjectStore = db
-      .transaction('cacheFiles', 'readwrite')
-      .objectStore('cacheFiles')
+      .transaction('myFiles', 'readwrite')
+      .objectStore('myFiles')
 
-    getFileBlob('index.html').then(function (data) {
-      console.log('data', data)
-      filesObjectStore.add({'index.html': data})
+    getFileBlob('images/128px-Pallas_Cat.jpg').then(function (data) {
+      filesObjectStore.add({'images/128px-Pallas_Cat.jpg': data})
     })
   }
 }
 
 function createObjectStore (db, storeName) {
-  db.createObjectStore(storename, { keyPath: 'filePath' })
-  return db
+  return db.createObjectStore(storeName, { keyPath: 'filePath' })
 }
 
 function openAndReadFromDB () {

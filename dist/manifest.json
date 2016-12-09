@@ -1,0 +1,17 @@
+{
+  "name": "baja-race-pwa",
+  "start_url": "./?utm_source=web_app_manifest",
+  "icons": [{
+        "src": "images/128px-Pallas_Cat.jpg",
+        "sizes": "128x128",
+        "type": "image/jpg"
+      },{
+        "src": "",
+        "sizes": "384x384",
+        "type": "image/png"
+      }],
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF",
+  "theme_color": "#000"
+}
